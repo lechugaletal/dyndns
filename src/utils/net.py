@@ -3,7 +3,7 @@ import re
 
 
 def get_public_ip(server: str) -> str:
-    """Fetches the public IP address from ifconfig.me and validates it as a public IPv4."""
+    """Fetches the public IP address from server and validates it as a public IPv4."""
     
     try:
         response = requests.get(server, timeout=5)

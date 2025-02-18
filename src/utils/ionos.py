@@ -52,6 +52,8 @@ def get_zone_records(api_url: str, api_key: str, zone_id: str, suffix: str, reco
 
 
 def update_zone_record(api_url: str, api_key: str, zone_id: str, records: list) -> str:
+    """Update provided DNS records from IONOS API."""
+
     url = f"{api_url}/{zone_id}"
 
     headers = {
