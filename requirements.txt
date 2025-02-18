@@ -1,2 +1,2 @@
-fastapi
-uvicorn
+pyyaml
+requests
