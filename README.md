@@ -1,33 +1,33 @@
-# python-project-template
+# DynDNS
 
-Low dependency, simple to start template for python3 projects.
+This project helps to automatically sync DNS `A` records: `www.domain.tld`, `domain.tld` with a dynamic public IPv4 value using Ionos API REST as DNS provider.
 
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/lechugaletal/python-project-template/badge)](https://securityscorecards.dev/viewer/?uri=github.com/lechugaletal/python-project-template)
+## How to run
 
-## What's in the bundle?
+The utility needs a config file with the following spec:
+```yaml
+ionos:
+  apiUrl: "https://api.hosting.ionos.com/dns/v1/zones"
+  publicPrefix: "1234" 
+  secret: "aabbccdd-1234"
+domainName: "domain.tld"
+net:
+  server: "https://ifconfig.me"
 
- * [🗃️] Project directory structure basis for every python3 app:
-   * The ``src/config.d`` should contain environment variable config and sensitive data config files.
-   * The ``src/models`` shpuld contain any object schema defined for the project.
-   * Other project directories considered but maybe less widely used are: ``src/routers`` and ``src/public``. Keep in mind that those can be useful for Flask projects!
- * [🕵️] A ``.gitignore`` file with defaults for python3 tmp files and sensitive data.
- * [📜] The Unilicense as the basis for projects.
- * [⤵️] A ``requirements.txt`` containing project dependencies.
- * [🔧] A ``Makefile`` with a default instruction set.
- * [🛡️] Automated OSSF scorecard vulnerability scanning with GitHub actions.
- * [📄] And last but not least... this README.md
+```
 
+Ionos API Credentials can be created following the official [documentation](https://developer.hosting.ionos.com/docs/getstarted).
 
-## Maybees...
-
- * Generate documentation with [MkDocs](https://www.mkdocs.org/). Although it can be useful for most cases, the idea behind this template is to keep python3 dependencies to a minimum.
-
-## About OSSF scorecard
-
-With GitHub actions an automated repo scanning can be configured, currrently this template is configured following OSSF guidelines, using the [following instructions](https://github.com/ossf/scorecard-action#workflow-setup-required). Any repository created from this template will generate a report automatically.
-
-To review the details of the generated report you must first **generate a GitHub token**. 
+Can be run as follows:
 
 ```bash
-docker run -e GITHUB_AUTH_TOKEN=<your_token> gcr.io/openssf/scorecard:latest --show-details --repo=https://github.com/lechugaletal/python-project-template
+python src/main.py -c ./test.yaml
+Detected public IPv4: '1.2.3.4'.
+Retrieving records for zone: 'domain.tld'.
+Public IPv4 value matched for record domain.tld type A:
+        current value: 1.2.3.4
+        expected value: 1.2.3.4
+Public IPv4 value matched for record www.domain.tld type A:
+        current value: 1.2.3.4
+        expected value: 1.2.3.4
 ```
